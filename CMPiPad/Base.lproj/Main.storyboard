@@ -178,8 +178,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQS-Up-TXO">
-                                <rect key="frame" x="132" y="289" width="336" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQS-Up-TXO">
+                                <rect key="frame" x="132" y="559" width="336" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="336" id="0xv-iz-KPA"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -187,8 +190,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hQS-Up-TXO" firstAttribute="centerX" secondItem="jrc-jw-Wp2" secondAttribute="centerX" id="SxG-r7-alQ"/>
-                            <constraint firstItem="hQS-Up-TXO" firstAttribute="centerY" secondItem="jrc-jw-Wp2" secondAttribute="centerY" id="fIs-GL-5rV"/>
+                            <constraint firstItem="hQS-Up-TXO" firstAttribute="centerX" secondItem="jrc-jw-Wp2" secondAttribute="centerX" id="Aa9-rA-K6k"/>
+                            <constraint firstAttribute="bottom" secondItem="hQS-Up-TXO" secondAttribute="bottom" constant="20" symbolic="YES" id="SeU-ah-ein"/>
                         </constraints>
                     </view>
                     <connections>
@@ -212,20 +215,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jyE-rD-Nks">
-                                <rect key="frame" x="88" y="289" width="425" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Approve Meal Scan For: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5d-eE-GDt">
+                                <rect key="frame" x="20" y="88" width="188" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="User's Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZW1-Qb-wET">
+                                <rect key="frame" x="208" y="99" width="246" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYC-Zh-1Mq">
+                                <rect key="frame" x="20" y="187" width="188" height="168"/>
+                                <color key="backgroundColor" red="0.72975495323987138" green="0.89914928149999995" blue="0.89507846197574137" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Approve Meal"/>
+                                <connections>
+                                    <action selector="approveMealAction:" destination="56F-eX-oGv" eventType="touchUpInside" id="GiI-dH-Ndk"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="udN-iO-bcQ">
+                                <rect key="frame" x="20" y="187" width="188" height="168"/>
+                                <color key="backgroundColor" red="0.48579939521930948" green="0.89914928149999995" blue="0.50109558634526252" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Refresh"/>
+                                <connections>
+                                    <action selector="refreshButtonAction:" destination="56F-eX-oGv" eventType="touchUpInside" id="Zr3-Is-c9H"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="jyE-rD-Nks" firstAttribute="centerX" secondItem="UP1-Vc-uMS" secondAttribute="centerX" id="LBm-Q2-GvZ"/>
-                            <constraint firstItem="jyE-rD-Nks" firstAttribute="leading" secondItem="UP1-Vc-uMS" secondAttribute="leadingMargin" constant="68" id="PJH-q3-7hx"/>
-                            <constraint firstItem="jyE-rD-Nks" firstAttribute="centerY" secondItem="UP1-Vc-uMS" secondAttribute="centerY" id="hBP-eY-XQO"/>
-                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="approveMealButtonOutlet" destination="MYC-Zh-1Mq" id="B7d-mF-7rO"/>
+                        <outlet property="approveMealLabel" destination="D5d-eE-GDt" id="Enj-gx-sXj"/>
+                        <outlet property="refreshButtonOutlet" destination="udN-iO-bcQ" id="HGi-yD-KcI"/>
+                        <outlet property="usernameLabel" destination="ZW1-Qb-wET" id="TXe-28-uaN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jIK-c6-6ku" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
