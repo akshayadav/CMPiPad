@@ -13,16 +13,18 @@ class onScanningQRCodeVC: UIViewController {
     var QRString:String!
     var pendingTransactionId: String!
     
+    var timer = NSTimer()
+    var timerInt:Int = 50 // change it to 60
+    
+    
+    var userInTransaction: PFObject!
+    
     
     @IBOutlet weak var approveMealLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     
-    @IBOutlet weak var refreshButtonOutlet: UIButton!
-    @IBAction func refreshButtonAction(sender: UIButton) {
-        
-        
-        
-    }
+    @IBOutlet weak var timerClock: UILabel!
+   
     
     
     
@@ -115,6 +117,8 @@ class onScanningQRCodeVC: UIViewController {
                         
                         let pendingTransactionId = user?.objectForKey("pendingTransactionId")as! String!
                         
+                        self.userInTransaction = user
+                        
 //                       self.pendingTransactionId = user?.objectForKey("pendingTransactionId")as! String!
                         
                         
@@ -140,14 +144,13 @@ class onScanningQRCodeVC: UIViewController {
                         
                         self.approveMealButtonOutlet.hidden = true
                         
-                        self.refreshButtonOutlet.hidden = false
                         
                         let alertController = UIAlertController(title: "Transaction approved", message:"Waiting for confirmation", preferredStyle: UIAlertControllerStyle.Alert)
                         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
                         
                         self.presentViewController(alertController, animated: true, completion: nil)
                         
-                        print("Here Right Now")
+                        self.waitingForConfirmation()
                         
                         
                     }
@@ -202,6 +205,77 @@ class onScanningQRCodeVC: UIViewController {
         //            }
         //        }
         
+    }
+    
+    
+    func waitingForConfirmation(){
+    
+        
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: #selector(onScanningQRCodeVC.updateClock), userInfo: nil, repeats: true)
+        
+    
+    }
+    
+    
+    func updateClock(){
+        timerClock.text = String(timerInt)
+        timerInt -= 1
+        
+        if(timerInt == -1){
+            timer.invalidate()
+            
+            print("StoppingTimer")
+            timerStoppedWithoutConfirmation()
+            
+        }
+        else{
+        
+        let pendingTransactionQuery = PFQuery(className: "pendingTransaction")
+            pendingTransactionQuery.getObjectInBackgroundWithId(userInTransaction.objectForKey("pendingTransactionId")as! String!){
+                 (pendingtransactionID: PFObject?, error: NSError?) -> Void in
+                if(error == nil && pendingtransactionID != nil){
+                    let transactionID = pendingtransactionID?.objectForKey("transactionid")as! String!
+                    
+                    if( transactionID == ""){
+                        print("no transaction linked")
+                    }
+                    else{
+                        
+                        let transactionQuery = PFQuery(className: "temptransaction")
+                        transactionQuery.getObjectInBackgroundWithId(transactionID){
+                            (transaction: PFObject?, error:NSError?) -> Void in
+                            if(transaction != nil && error == nil){
+                                
+                                let approved: Bool =  transaction?.objectForKey("approved")as! Bool!
+                                
+                                if(approved){
+                                    print("transaction is approved")
+                                    
+                                    self.timer.invalidate()
+                                    
+                                    
+                                    
+                                }
+                            
+                            }
+                        }
+                    
+                    }
+                
+                
+                }
+            }
+            
+        }
+        
+        
+    }
+    
+    func timerStoppedWithoutConfirmation(){
+    
+        performSegueWithIdentifier("goingBackToScanner", sender: self)
+    
     }
     
 }
