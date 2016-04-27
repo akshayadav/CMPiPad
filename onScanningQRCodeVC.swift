@@ -10,6 +10,8 @@ import UIKit
 
 class onScanningQRCodeVC: UIViewController {
     
+    var pendingTransaction: PFObject?
+    
     var QRString:String!
     var pendingTransactionId: String!
     
@@ -95,12 +97,6 @@ class onScanningQRCodeVC: UIViewController {
     @IBAction func approveMealAction(sender: UIButton) {
         
         
-        
-        
-        
-        
-        
-        
         let transaction = PFObject(className:"temptransaction")
         transaction["customerid"] = QRString
         transaction["approved"] = false
@@ -128,6 +124,7 @@ class onScanningQRCodeVC: UIViewController {
                             if error == nil && pendingtransaction != nil{
                                 pendingtransaction?.setValue(transaction.objectId, forKey: "transactionid")
                                 pendingtransaction?.saveInBackground()
+                                self.pendingTransaction = pendingtransaction
                             
                             }
                         
@@ -145,7 +142,7 @@ class onScanningQRCodeVC: UIViewController {
                         self.approveMealButtonOutlet.hidden = true
                         
                         
-                        let alertController = UIAlertController(title: "Transaction approved", message:"Waiting for confirmation", preferredStyle: UIAlertControllerStyle.Alert)
+                        let alertController = UIAlertController(title: "Transaction approval pending", message:"Waiting for confirmation", preferredStyle: UIAlertControllerStyle.Alert)
                         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
                         
                         self.presentViewController(alertController, animated: true, completion: nil)
@@ -256,6 +253,26 @@ class onScanningQRCodeVC: UIViewController {
                                     
                                     
                                     
+                                    
+                                    
+                                    
+                                    let alertController = UIAlertController(title: "Transaction approved", message:"Customer Confirmed the purchase", preferredStyle: UIAlertControllerStyle.Alert)
+                                    
+                                    
+                                    let transactionCompleteAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                        UIAlertAction in
+                                        
+                                        
+                                        let viewController:UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("homeScreen")
+                                        self.presentViewController(viewController, animated: true, completion: nil)
+                                        
+                                    }
+                                    
+                                    alertController.addAction(transactionCompleteAction)
+                                    
+                                    self.presentViewController(alertController, animated: true, completion: nil)
+                                    
+                                    
                                 }
                             
                             }
@@ -273,6 +290,9 @@ class onScanningQRCodeVC: UIViewController {
     }
     
     func timerStoppedWithoutConfirmation(){
+        
+        pendingTransaction?.setValue("", forKey: "transactionid")
+        pendingTransaction?.saveInBackground()
     
         performSegueWithIdentifier("goingBackToScanner", sender: self)
     

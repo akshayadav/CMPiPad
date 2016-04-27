@@ -23,12 +23,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-75" y="-599"/>
+            <point key="canvasLocation" x="-75" y="-685"/>
         </scene>
         <!--Select ScreenVC-->
         <scene sceneID="P6O-VI-zC8">
             <objects>
-                <viewController id="GcH-Ie-E1C" customClass="selectScreenVC" customModule="CMPiPad" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GcH-Ie-E1C" customClass="selectScreenVC" customModule="CMPiPad" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Loh-v6-F56"/>
                         <viewControllerLayoutGuide type="bottom" id="z9C-oK-hn0"/>
@@ -250,6 +250,7 @@
                         <outlet property="timerClock" destination="ewL-zH-YRb" id="Ygz-BI-JVa"/>
                         <outlet property="usernameLabel" destination="ZW1-Qb-wET" id="TXe-28-uaN"/>
                         <segue destination="1JF-YG-hKB" kind="show" identifier="goingBackToScanner" id="o1n-d4-aMa"/>
+                        <segue destination="GcH-Ie-E1C" kind="show" identifier="transactionSuccessful" id="hYX-2A-R2R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jIK-c6-6ku" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -258,6 +259,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="o1n-d4-aMa"/>
+        <segue reference="Wuz-HB-nnx"/>
     </inferredMetricsTieBreakers>
 </document>
